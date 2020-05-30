@@ -13,6 +13,16 @@ spinner() {
         printf "%s\b" "${sp:i++%n:1}"
     done
 }
+
+# Set static IP
+static() {
+    nmcli con mod "Wired connection 1" \
+    ipv4.addresses $hn"/24" \
+    ipv4.gateway "192.168.1.1" \
+    ipv4.dns "1.1.1.1,8.8.8.8" \
+    ipv4.method "manual"
+}
+
 # Calculates system settings from user input
 x=0
 while [ $x -lt 1 ]
@@ -36,6 +46,11 @@ if [ "$yn" != "${yn#[Yy]}" ]; then
     echo $hn > /etc/hostname
     sleep 2 &
     printf 'Setting hostname '
+    spinner
+    printf 'done\n'
+    static
+    sleep 2 &
+    printf 'Applying network settings '
     spinner
     printf 'done\n'
 else
