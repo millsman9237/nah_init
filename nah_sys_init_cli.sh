@@ -3,10 +3,13 @@
 # Spinning wait animation
 spinner() {
     local i sp n
-    sp='/-\|'
+    PID=$!
+    i=1
+    sp="/-\|"
     n=${#sp}
-    printf ' '
-    while sleep 0.1; do
+    echo -n ' '
+    while [ -d /proc/$PID ]
+    do
         printf "%s\b" "${sp:i++%n:1}"
     done
 }
@@ -37,25 +40,9 @@ read -p "Use these settings to initialize this workstation (y/n)? " yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
     echo $hn > /etc/hostname
     sleep 2 &
-    PID=$!
-    i=1
-    sp="/-\|"
-    echo -n ' '
-    while [ -d /proc/$PID ]
-    do
-        printf "\b${sp:i++%${#sp}:1}"
-    done
-#test
-#    printf 'Setting hostname '
-#    spinner &
-#    sleep 5
-#    kill "$!" # Kill the spinner
-#    printf 'done\n'
-#    printf 'Setting static address '
-#    spinner &
-#    sleep 5
-#    kill "$!" # Kill the spinner
-#    printf 'done\n'
+    printf 'Setting hostname '
+    spinner
+    printf 'done\n'
 else
     echo no
 fi
