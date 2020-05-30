@@ -17,7 +17,7 @@ spinner() {
 # Set static IP
 static() {
     nmcli con mod "Wired connection 1" \
-    ipv4.addresses $hn"/24" \
+    ipv4.addresses $ip"/24" \
     ipv4.gateway "192.168.1.1" \
     ipv4.dns "1.1.1.1,8.8.8.8" \
     ipv4.method "manual"
