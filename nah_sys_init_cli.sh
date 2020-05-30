@@ -43,7 +43,7 @@ if [ "$yn" != "${yn#[Yy]}" ]; then
     echo -n ' '
     while [ -d /proc/$PID ]
     do
-        printf "\b${sp:1++%${#sp}:1}"
+        printf "\b${sp:i++%${#sp}:1}"
     done
 #test
 #    printf 'Setting hostname '
