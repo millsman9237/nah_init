@@ -20,12 +20,7 @@ while [ $x -lt 1 ]
         # Ask user for workstation number
         read -p "Enter workstation number: " wn
         hn="workstation-"$wn
-        [[ $wn =~ ^[0-9]+$ ]] # Checks if number is less than 10
-        if ((wn <= 9)); then
-            ip="192.168.1."$(( wn - 1 ))  # Sets static IP, range starts at 10
-        else
-            ip="192.168.1."$(( wn + 10 - 1 )) # Adds 10 if workstation number exeeds 10
-        fi
+        ip="192.168.1."$(( wn + 10 - 1 )) # Adds 10 if workstation number exeeds 10
         clear
         x=$(( $x + 1 ))   # Ends while loop
     done
